@@ -23,12 +23,13 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     }
   })
-  .then(categoryData => {
-    if (!categoryData) {
+  .then(productData => {
+    if (!productData) {
       res.status(404).json({ message: 'No product found with this id! '})
       return;
     }
-    res.json(categoryData)
+    res.json(productData)
+    return Category.findAll({ where: { product_id: req.params.id } });
   })
   .catch(err => {
     console.log(err);
